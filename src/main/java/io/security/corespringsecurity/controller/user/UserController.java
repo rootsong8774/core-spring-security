@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class UserController {
     
     @Autowired
-    private final PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
     @Autowired
-    private final UserService userService;
+    private UserService userService;
     
     @GetMapping("/mypage")
     public String myPage() {
