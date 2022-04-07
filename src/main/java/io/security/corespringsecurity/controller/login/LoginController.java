@@ -1,5 +1,6 @@
 package io.security.corespringsecurity.controller.login;
 
+import io.security.corespringsecurity.domain.Account;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.core.Authentication;
@@ -16,7 +17,7 @@ public class LoginController {
     @GetMapping("/login")
     public String login(@RequestParam(value = "error", required = false) String error,
         @RequestParam(value = "exception", required = false) String exception, Model model) {
-    
+        
         model.addAttribute("error", error);
         model.addAttribute("exception", exception);
         return "user/login/login";
@@ -33,5 +34,14 @@ public class LoginController {
         return "redirect:/login";
     }
     
+    @GetMapping("/denied")
+    public String accessDenied(@RequestParam(value = "exception", required = false) String exception, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = (String) authentication.getPrincipal();
+        model.addAttribute("username", username);
+        model.addAttribute("exception",exception);
     
+        return "/user/login/denied";
+    
+    }
 }
