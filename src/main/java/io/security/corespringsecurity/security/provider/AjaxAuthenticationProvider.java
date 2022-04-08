@@ -2,6 +2,7 @@ package io.security.corespringsecurity.security.provider;
 
 import io.security.corespringsecurity.security.common.FormWebAuthenticationDetails;
 import io.security.corespringsecurity.security.service.AccountContext;
+import io.security.corespringsecurity.security.service.CustomUserDetailsService;
 import io.security.corespringsecurity.security.token.AjaxAuthenticationToken;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -12,16 +13,20 @@ import org.springframework.security.authentication.InsufficientAuthenticationExc
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+@Component
 @AllArgsConstructor
 @NoArgsConstructor
 public class AjaxAuthenticationProvider implements AuthenticationProvider {
     
     @Autowired
-    private UserDetailsService userDetailsService;
+    private CustomUserDetailsService userDetailsService;
     
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -47,6 +52,8 @@ public class AjaxAuthenticationProvider implements AuthenticationProvider {
     
     @Override
     public boolean supports(Class<?> authentication) {
-        return AjaxAuthenticationToken.class.isAssignableFrom(authentication);
+        return authentication.isAssignableFrom(AjaxAuthenticationToken.class);
     }
+    
+    
 }

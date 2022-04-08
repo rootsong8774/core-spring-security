@@ -2,8 +2,9 @@ package io.security.corespringsecurity.security.configs;
 
 import io.security.corespringsecurity.security.common.FormAuthenticationDetailsSource;
 import io.security.corespringsecurity.security.handler.CustomAccessDeniedHandler;
+import io.security.corespringsecurity.security.handler.CustomAuthenticationFailureHandler;
+import io.security.corespringsecurity.security.handler.CustomAuthenticationSuccessHandler;
 import io.security.corespringsecurity.security.provider.CustomAuthenticationProvider;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -20,26 +21,23 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
 @Order(1)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     
     @Autowired
-    private final AuthenticationSuccessHandler authenticationSuccessHandler;
+    private CustomAuthenticationSuccessHandler authenticationSuccessHandler;
     
     @Autowired
-    private final AuthenticationFailureHandler authenticationFailureHandler;
+    private CustomAuthenticationFailureHandler authenticationFailureHandler;
     
     @Autowired
-    private final FormAuthenticationDetailsSource authenticationDetailsSource;
+    private FormAuthenticationDetailsSource authenticationDetailsSource;
     
     @Autowired
-    private final UserDetailsService userDetailsService;
+    private UserDetailsService userDetailsService;
     
     @Bean
     public PasswordEncoder passwordEncoder() {
