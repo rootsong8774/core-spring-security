@@ -19,7 +19,7 @@ public class AjaxAuthenticationSuccessHandler implements AuthenticationSuccessHa
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
         Authentication authentication) throws IOException, ServletException {
     
-        Account account = (Account) authentication.getPrincipal();
+        String account = (String) authentication.getPrincipal();
     
         response.setStatus(HttpStatus.OK.value());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
