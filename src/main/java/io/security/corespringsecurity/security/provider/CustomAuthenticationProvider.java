@@ -20,7 +20,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     @Autowired
     private UserDetailsService userDetailsService;
     
-    
+    @Autowired
     private final PasswordEncoder passwordEncoder;
     
     public CustomAuthenticationProvider(
